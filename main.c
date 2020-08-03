@@ -4,35 +4,35 @@
 
 typedef struct
 {
-	int* bit_map;		// set to be size of 'groupSize'
-	char** strings;		// suppost to be vector
+	int *bit_map;		// set to be size of 'groupSize'
+	char **strings;		// suppost to be vector
 } group;
 
 
 typedef struct
 {
-	group* groups;	// dynamicaly allocated array of structs
+	group *groups;	// dynamicaly allocated array of structs
 	int num_groups;	// number of groups
 	int array_len;	// logical length of the full s_parse_string_array_t
 	int group_size;	// number of strings managed by each group	
 } s_parse_string_array_t;
 
 
-void SSA_new(s_parse_string_array_t* ssa, 
-			 int array_length,
-			 int group_size);
-int SSA_insert(s_parse_string_array_t* ssa,
-			   int index, 
-			   const char* str);
-void SSA_map(s_parse_string_array_t* ssa,
-			 void (*mapfn)(),
-			 void* aux_data);
-void SSA_dispose(s_parse_string_array_t* ssa);
+void SSA_new(s_parse_string_array_t *ssa, 
+	     int array_length,
+	     int group_size);
+int SSA_insert(s_parse_string_array_t *ssa,
+               int index, 
+	       const char *str);
+void SSA_map(s_parse_string_array_t *ssa,
+	     void (*mapfn)(),
+	     void* aux_data);
+void SSA_dispose(s_parse_string_array_t *ssa);
 
 
 static void count_empty_print_not_empty(int index, 
-										char* str, 
-										void* aux_data);
+					char *str, 
+					void *aux_data);
 
 
 int main(int argc, char *argv[])
@@ -54,9 +54,9 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void SSA_new(s_parse_string_array_t* ssa,
-			 int array_length,
-			 int group_size)
+void SSA_new(s_parse_string_array_t *ssa,
+	     int array_length,
+	     int group_size)
 {
 	ssa->num_groups = (array_length  - 1) / group_size + 1;
 	ssa->group_size = group_size;
@@ -83,9 +83,9 @@ void SSA_new(s_parse_string_array_t* ssa,
 	}
 }
 
-int SSA_insert(s_parse_string_array_t* ssa,
-			   int index,
-			   const char* str)
+int SSA_insert(s_parse_string_array_t *ssa,
+	       int index,
+               const char *str)
 {
 	int group_index = (index / ssa->group_size);
 	int string_index_bitmap = (index % ssa->group_size);
@@ -108,9 +108,9 @@ int SSA_insert(s_parse_string_array_t* ssa,
 	return !previously_inserted;
 }
 
-void SSA_map(s_parse_string_array_t* ssa,
+void SSA_map(s_parse_string_array_t *ssa,
 			 void(*mapfn)(),
-			 void* aux_data)
+			 void *aux_data)
 {
 	int i, v;
 
@@ -136,8 +136,8 @@ void SSA_dispose(s_parse_string_array_t* ssa)
 }
 
 static void count_empty_print_not_empty(int index,
-										char* str,
-										void* aux_data)
+					char *str,
+					void *aux_data)
 {
 	if (strcmp(str, "") != 0)
 	{
