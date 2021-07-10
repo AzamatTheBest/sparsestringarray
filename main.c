@@ -5,7 +5,7 @@
 typedef struct
 {
 	int *bit_map;		// set to be size of 'groupSize'
-	char **strings;		// suppost to be vector
+	char **strings;		// supposed to be vector
 } group;
 
 
